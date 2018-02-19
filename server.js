@@ -10,7 +10,7 @@ var PORT = process.env.PORT || 3000;
 // Parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// app.use(express.static("./public"));
+app.use(express.static("./public"));
 
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -49,6 +49,10 @@ app.get('/auth/google/callback',
   function(req, res) {
     res.redirect('/');
   });
+
+app.get("/", function(req, res){
+	res.sendFile(path.join(__dirname, "../public/index.html"));
+})
 
 app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
